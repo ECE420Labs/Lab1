@@ -64,14 +64,14 @@ int Lab1_loadinput(int ***A, int ***B, int *n)
 int Lab1_saveoutput(int **C, int *n, double Time)
 {
 /*
-    Save the data to the file for Lab 1 
+    Save the data to the file for Lab 1
 
     -----
     Input:
-    int **C     pointer to the result matrix 
+    int **C     pointer to the result matrix
     int *n      pointer to the matrix size
     double Time measure calulation time
-    
+
     -----
     Output:
     data_output the stored data
@@ -104,8 +104,8 @@ int Lab1_saveoutput(int **C, int *n, double Time)
 
 void pCalc(int *p) {
 
-  long       thread;  
-  pthread_t* thread_handles; 
+  long       thread;
+  pthread_t* thread_handles;
 
   thread_handles = malloc (p*sizeof(pthread_t));
 
@@ -120,17 +120,16 @@ void pCalc(int *p) {
       (*C)[i][j] = 0;
 
   for (thread = 0; thread < p; thread++) {
-    pthread_create(&thread_handles[thread], NULL, 
-		   threadCalc, (void*) thread);   
+    pthread_create(&thread_handles[thread], NULL,
+		   threadCalc, (void*) thread);
   }
 
   for (thread = 0; thread < p; thread++) {
-    pthread_join
-      (thread_handles[thread], NULL);  
+    pthread_join(thread_handles[thread], NULL);
   }
 
-  free(thread_handles); 
-  return 0; 
+  free(thread_handles);
+  return 0;
 
 }
 
@@ -157,16 +156,16 @@ void *threadCalc(void *rank) {
 
 	  (*C)[i][k] += (*A)[i][j] * (*B)[h][k];
 
-	}  
+	}
 
       }
 
-    }  
+    }
 
   }
 
 }
- 
+
 void main() {
 
   *p = atoi(argv[1]);
@@ -180,4 +179,3 @@ void main() {
   free(C);
 
 }
-
