@@ -129,12 +129,12 @@ printf("rank is %d\n", ranknum);
            //printf("i is %d\n", i);
 
     for (j = (*n)/((int) sqrt((double) p)) * y;
-	 j < (*n)/((int) sqrt((double) p)) * (y+1);
-	 j++) {
-
+	     j < (*n)/((int) sqrt((double) p)) * (y+1);
+	     j++) {
+printf("j is %d\n", j);
       for (h = (*n)/((int) sqrt((double) p)) * x;
-	   h < (*n)/((int) sqrt((double) p)) * (x+1);
-	   h++) {
+	       h < (*n)/((int) sqrt((double) p)) * (x+1);
+	       h++) {
 
     	for (k = (*n)/((int) sqrt((double) p)) * y;
     	     k < (*n)/((int) sqrt((double) p)) * (y+1);
