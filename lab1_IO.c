@@ -156,17 +156,17 @@ printf("entered pcalc\n");
 
   thread_handles = malloc (p * sizeof(pthread_t));
 
-  *C = malloc(*n * sizeof(int*));
+  C = malloc(*n * sizeof(int*));
 printf("malloc-ed C pointer\n");
   int i, j;
 
   for (i = 0; i <= *n; i++) {
-    (*C)[i] = malloc(*n * sizeof(int));
+    C[i] = malloc(*n * sizeof(int));
   }
 printf("malloc-ed C first time\n");
   for (i = 0; i < *n; i++) {
     for (j = 0; j< *n; j++) {
-      (*C)[i][j] = 0;
+      C[i][j] = 0;
     }
   }
 
