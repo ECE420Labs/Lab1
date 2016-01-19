@@ -138,7 +138,7 @@ void *threadCalc(void *rank) {
     	     k < (*n)/((int) sqrt((double) p)) * (y+1);
     	     k++) {
 
-    	  C[i][k] += A[i][j] * B[h][k];
+    	  C[i][k] += (*A)[i][j] * (*B)[h][k];
         printf("crash and burn?\n");
     	}
 
