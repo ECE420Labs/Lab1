@@ -131,7 +131,7 @@ printf("rank is %d\n", ranknum);
     for (j = (*n)/((int) sqrt((double) p)) * y;
 	     j < (*n)/((int) sqrt((double) p)) * (y+1);
 	     j++) {
-printf("j is %d\n", j);
+//printf("j is %d\n", j);
       for (h = (*n)/((int) sqrt((double) p)) * x;
 	       h < (*n)/((int) sqrt((double) p)) * (x+1);
 	       h++) {
@@ -139,7 +139,7 @@ printf("j is %d\n", j);
     	for (k = (*n)/((int) sqrt((double) p)) * y;
     	     k < (*n)/((int) sqrt((double) p)) * (y+1);
     	     k++) {
-
+                 printf("about to crash and burn?\n");
     	  (*C)[i][k] += (*A)[i][j] * (*B)[h][k];
         printf("crash and burn?\n");
     	}
