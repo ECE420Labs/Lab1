@@ -32,7 +32,7 @@ int Lab1_loadinput(int ***A, int ***B, int *n)
     lab1_loadinput(&A, &B, &n);
 */
 
-n = malloc(sizeof(int));
+  n = malloc(sizeof(int));
 
 printf("start load\n");
     FILE *ip;
@@ -46,10 +46,10 @@ printf("2\n");
     }
 printf("3\n");
     fscanf(ip, "%d\n", n);
-printf("got n\n");
+printf("got n as %d\n", *n);
     *A = malloc(*n * sizeof(int*));
     *B = malloc(*n * sizeof(int*));
-
+printf("got A and B first time\n");
     for (i = 0; i < *n; i++)
     {
       (*A)[i] = malloc(*n * sizeof(int));
