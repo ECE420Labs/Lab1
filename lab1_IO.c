@@ -58,12 +58,12 @@ printf("got A and B first time\n");
 printf("malloced A and B\n");
     for (i = 0; i < *n; i++) {
         for (j = 0; j< *n; j++) {
-            fscanf(ip, "%d\t", A[i][j]);
+            fscanf(ip, "%d\t", &A[i][j]);
         }
     }
     for (i = 0; i < *n; i++) {
         for (j = 0; j <* n; j++) {
-            fscanf(ip, "%d\t", B[i][j]);
+            fscanf(ip, "%d\t", &B[i][j]);
         }
     }
 printf("loaded A and B\n");
