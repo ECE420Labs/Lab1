@@ -140,7 +140,7 @@ void *threadCalc(void *rank) {
 }
 
 void pCalc(int *p) {
-
+printf("entered pcalc\n");
   long       thread;
   pthread_t* thread_handles;
 
