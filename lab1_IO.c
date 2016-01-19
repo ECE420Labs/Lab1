@@ -33,13 +33,15 @@ int Lab1_loadinput(int ***A, int ***B, int *n)
 */
 printf("start load\n");
     FILE* ip;
-    int i,j;
-
+printf("1\n");
+    int i, j;
+printf("2\n");
     if ((ip = fopen("data_input","r")) == NULL)
     {
             printf("error opening the input data.\n");
             return 1;
     }
+printf("3\n");
     fscanf(ip, "%d\n", n);
 printf("n is %d\n", *n);
     *A = malloc(*n * sizeof(int*));
