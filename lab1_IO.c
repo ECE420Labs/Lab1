@@ -155,8 +155,8 @@ printf("entered pcalc\n");
   pthread_t* thread_handles;
 printf("1.1\n");
   thread_handles = malloc(p * sizeof(pthread_t));
-printf("1.2\n");
-  *C = malloc(*n * sizeof(int));
+printf("n is still %d\n", *n);
+  C = malloc(*n * sizeof(int*));
 printf("malloc-ed C pointer\n");
   int i, j;
 
