@@ -42,7 +42,7 @@ printf("2\n");
             return 1;
     }
 printf("3\n");
-    fscanf(ip, "%d\n", *n);
+    fscanf(ip, "%d\n", &n);
 printf("n is %d\n", *n);
     *A = malloc(*n * sizeof(int*));
     *B = malloc(*n * sizeof(int*));
