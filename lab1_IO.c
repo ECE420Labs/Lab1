@@ -4,10 +4,9 @@
 #include "lab1_IO.h"
 
 int ***A, ***B, ***C;
-int *n;
 int p;
 
-int Lab1_loadinput(int ***A, int ***B, int *n)
+int* Lab1_loadinput(int ***A, int ***B, int *n)
 {
 /*
     Allocate memory and load the input data for Lab 1
@@ -68,7 +67,7 @@ printf("malloced A and B\n");
     }
 printf("loaded A and B\n");
     fclose(ip);
-    return 0;
+    return n;
 }
 
 int Lab1_saveoutput(int **C, int *n, double Time)
@@ -149,7 +148,7 @@ void *threadCalc(void *rank) {
 
 }
 
-void pCalc(int p) {
+void pCalc(int p, int *n) {
 printf("entered pcalc\n");
   long       thread;
   pthread_t* thread_handles;
@@ -189,11 +188,12 @@ printf("malloc-ed C\n");
 
 void main(int argc, char *argv[]) {
 printf("start\n");
+  int *n;
   p = atoi(argv[1]);
 printf("Got p as %d\n", p);
-  Lab1_loadinput(A, B, n);
+  n = Lab1_loadinput(A, B, n);
 printf("loaded input\n");
-  pCalc(p);
+  pCalc(p, n);
 
   free(A);
   free(B);
