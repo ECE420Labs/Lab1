@@ -43,7 +43,7 @@ printf("2\n");
     }
 printf("3\n");
     fscanf(ip, "%d\n", n);
-printf("n is %d\n", n);
+printf("got n\n");
     *A = malloc(*n * sizeof(int*));
     *B = malloc(*n * sizeof(int*));
 
