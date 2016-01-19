@@ -7,7 +7,7 @@ int ***A, ***B, ***C;
 int *n;
 int p;
 
-int Lab1_loadinput(int ***A, int ***B)
+int Lab1_loadinput()
 {
 /*
     Allocate memory and load the input data for Lab 1
@@ -140,7 +140,7 @@ printf("rank is %d\n", ranknum);
     	     k < (*n)/((int) sqrt((double) p)) * (y+1);
     	     k++) {
                  printf("about to crash and burn?\n");
-                 printf("*(A[i][j]) is %d\n", *(A[i][j]));
+                 //printf("*(A[i][j]) is %d\n", *(A)[i][j]);
     	  *(C[i][k]) += *(A[i][j]) * *(B[h][k]);
         printf("crash and burn?\n");
     	}
@@ -191,7 +191,7 @@ void main(int argc, char *argv[]) {
 printf("start\n");
   p = atoi(argv[1]);
 printf("Got p as %d\n", p);
-  Lab1_loadinput(A, B);
+  Lab1_loadinput();
 printf("loaded input\n");
   pCalc(p);
 
