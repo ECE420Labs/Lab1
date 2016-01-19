@@ -141,7 +141,7 @@ printf("rank is %d\n", ranknum);
     	     k++) {
         printf("about to crash and burn? i k are %d %d\n", i, k);
         printf("*(A[i][j]) is %d B[h][k] is %d C[h][k] is %d\n", A[i][j], B[h][k], C[i][k]);
-    	            C[i][k] += (*A)[i][j] * (*B)[h][k];
+    	            C[i][k] += A[i][j] * B[h][k];
         printf("crash and burn?\n");
     	}
       }
