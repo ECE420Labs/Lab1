@@ -32,7 +32,7 @@ int Lab1_loadinput(int ***A, int ***B, int *n)
     lab1_loadinput(&A, &B, &n);
 */
 printf("start load\n");
-    FILE* ip;
+    FILE *ip;
 printf("1\n");
     int i, j;
 printf("2\n");
@@ -42,8 +42,8 @@ printf("2\n");
             return 1;
     }
 printf("3\n");
-    fscanf(ip, "%d\n", &n);
-printf("n is %d\n", *n);
+    fscanf(ip, "%d\n", n);
+printf("n is %d\n", n);
     *A = malloc(*n * sizeof(int*));
     *B = malloc(*n * sizeof(int*));
 
