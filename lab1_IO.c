@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <cmath.h>
+#include <math.h>
 #include "lab1_IO.h"
 
 int ***A, ***B, ***C;
@@ -102,56 +102,29 @@ int Lab1_saveoutput(int **C, int *n, double Time)
     return 0;
 }
 
-void pCalc(int *p) {
-
-  long       thread;
-  pthread_t* thread_handles;
-
-  thread_handles = malloc (p*sizeof(pthread_t));
-
-  *C = malloc(*n * sizeof(int*));
-
-  for (i = 0; i <= *n; i++) {
-    (*C)[i] = malloc(*n * sizeof(int));
-  }
-
-  for (i = 0; i < *n; i++)
-    for (j = 0; j< *n; j++)
-      (*C)[i][j] = 0;
-
-  for (thread = 0; thread < p; thread++) {
-    pthread_create(&thread_handles[thread], NULL,
-		   threadCalc, (void*) thread);
-  }
-
-  for (thread = 0; thread < p; thread++) {
-    pthread_join(thread_handles[thread], NULL);
-  }
-
-  free(thread_handles);
-  return 0;
-
-}
-
 void *threadCalc(void *rank) {
 
-  int x = floor(*rank / sqrt(*p));
-  int y = rank % sqrt(p);
+  int *ranknum = (int *) rank;
 
-  for (int i = (*n)/sqrt(*p) * x;
-       i < (*n)/sqrt(*p) * (x+1);
+  int x = floor(*ranknum / ((int) sqrt((double) *p)));
+  int y = *ranknum % ((int) sqrt((double) *p));
+
+  int h, i, j, k;
+
+  for (i = (*n)/((int) sqrt((double) *p)) * x;
+       i < (*n)/((int) sqrt((double) *p)) * (x+1);
        i++) {
 
-    for (int j = (*n)/sqrt(*p) * y;
-	 j < (*n)/sqrt(*p) * (y+1);
+    for (j = (*n)/((int) sqrt((double) *p)) * y;
+	 j < (*n)/((int) sqrt((double) *p)) * (y+1);
 	 j++) {
 
-      for (int h = (*n)/sqrt(*p) * x;
-	   h < (*n)/sqrt(*p) * (x+1);
+      for (h = (*n)/((int) sqrt((double) *p)) * x;
+	   h < (*n)/((int) sqrt((double) *p)) * (x+1);
 	   h++) {
 
-	for (int k = (*n)/sqrt(*p) * y;
-	     k < (*n)/sqrt(*p) * (y+1);
+	for (k = (*n)/((int) sqrt((double) *p)) * y;
+	     k < (*n)/((int) sqrt((double) *p)) * (y+1);
 	     k++) {
 
 	  (*C)[i][k] += (*A)[i][j] * (*B)[h][k];
@@ -166,7 +139,41 @@ void *threadCalc(void *rank) {
 
 }
 
-void main() {
+void pCalc(int *p) {
+
+  long       thread;
+  pthread_t* thread_handles;
+
+  thread_handles = malloc (*p * sizeof(pthread_t));
+
+  *C = malloc(*n * sizeof(int*));
+
+  int i, j;
+
+  for (i = 0; i <= *n; i++) {
+    (*C)[i] = malloc(*n * sizeof(int));
+  }
+
+  for (i = 0; i < *n; i++)
+    for (j = 0; j< *n; j++)
+      (*C)[i][j] = 0;
+
+  for (thread = 0; thread < *p; thread++) {
+    pthread_create(&thread_handles[thread], NULL,
+		   threadCalc, (void*) thread);
+  }
+
+  for (thread = 0; thread < *p; thread++) {
+    pthread_join(thread_handles[thread], NULL);
+  }
+
+  free(thread_handles);
+  return;
+
+}
+
+
+void main(int argc, char *argv[]) {
 
   *p = atoi(argv[1]);
 
