@@ -123,13 +123,13 @@ void *threadCalc(void *rank) {
 	   h < (*n)/((int) sqrt((double) *p)) * (x+1);
 	   h++) {
 
-	for (k = (*n)/((int) sqrt((double) *p)) * y;
-	     k < (*n)/((int) sqrt((double) *p)) * (y+1);
-	     k++) {
+    	for (k = (*n)/((int) sqrt((double) *p)) * y;
+    	     k < (*n)/((int) sqrt((double) *p)) * (y+1);
+    	     k++) {
 
-	  (*C)[i][k] += (*A)[i][j] * (*B)[h][k];
+    	  (*C)[i][k] += (*A)[i][j] * (*B)[h][k];
 
-	}
+    	}
 
       }
 
@@ -178,11 +178,11 @@ printf("malloc-ed C\n");
 
 
 void main(int argc, char *argv[]) {
-
+printf("start\n");
   *p = atoi(argv[1]);
-
+printf("Got p as %d\n", *p);
   Lab1_loadinput(A, B, n);
-
+printf("loaded input\n");
   pCalc(p);
 
   free(A);
