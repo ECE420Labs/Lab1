@@ -113,6 +113,7 @@ int Lab1_saveoutput(int **C, int *n, double Time)
 }
 
 void *threadCalc(void *rank) {
+  printf("thread calc commences\n");
 
   int *ranknum = (int *) rank;
 
@@ -120,7 +121,7 @@ void *threadCalc(void *rank) {
   int y = *ranknum % ((int) sqrt((double) p));
 
   int h, i, j, k;
-
+  printf("things are ready to enter the loops\n");
   for (i = (*n)/((int) sqrt((double) p)) * x;
        i < (*n)/((int) sqrt((double) p)) * (x+1);
        i++) {
@@ -137,8 +138,8 @@ void *threadCalc(void *rank) {
     	     k < (*n)/((int) sqrt((double) p)) * (y+1);
     	     k++) {
 
-    	  (*C)[i][k] += (*A)[i][j] * (*B)[h][k];
-
+    	  C[i][k] += A[i][j] * B[h][k];
+        printf("crash and burn?\n");
     	}
 
       }
