@@ -139,8 +139,8 @@ printf("rank is %d\n", ranknum);
     	for (k = (*n)/((int) sqrt((double) p)) * y;
     	     k < (*n)/((int) sqrt((double) p)) * (y+1);
     	     k++) {
-                 printf("about to crash and burn?\n");
-                 printf("*(A[i][j]) is %d\n", A[i][j]);
+                 printf("about to crash and burn? i k are %d %d\n", i, k);
+                 printf("*(A[i][j]) is %d B[h][k] is %d\n", A[i][j], B[h][k]);
     	  C[i][k] = C[i][k] + (*(A[i][j]) * *(B[h][k]));
         printf("crash and burn?\n");
     	}
