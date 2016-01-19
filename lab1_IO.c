@@ -5,7 +5,7 @@
 
 int ***A, ***B, ***C;
 int *n;
-int *p;
+int p;
 
 int Lab1_loadinput(int ***A, int ***B, int *n)
 {
@@ -106,25 +106,25 @@ void *threadCalc(void *rank) {
 
   int *ranknum = (int *) rank;
 
-  int x = floor(*ranknum / ((int) sqrt((double) *p)));
-  int y = *ranknum % ((int) sqrt((double) *p));
+  int x = floor(*ranknum / ((int) sqrt((double) p)));
+  int y = *ranknum % ((int) sqrt((double) p));
 
   int h, i, j, k;
 
-  for (i = (*n)/((int) sqrt((double) *p)) * x;
-       i < (*n)/((int) sqrt((double) *p)) * (x+1);
+  for (i = (*n)/((int) sqrt((double) p)) * x;
+       i < (*n)/((int) sqrt((double) p)) * (x+1);
        i++) {
 
-    for (j = (*n)/((int) sqrt((double) *p)) * y;
-	 j < (*n)/((int) sqrt((double) *p)) * (y+1);
+    for (j = (*n)/((int) sqrt((double) p)) * y;
+	 j < (*n)/((int) sqrt((double) p)) * (y+1);
 	 j++) {
 
-      for (h = (*n)/((int) sqrt((double) *p)) * x;
-	   h < (*n)/((int) sqrt((double) *p)) * (x+1);
+      for (h = (*n)/((int) sqrt((double) p)) * x;
+	   h < (*n)/((int) sqrt((double) p)) * (x+1);
 	   h++) {
 
-    	for (k = (*n)/((int) sqrt((double) *p)) * y;
-    	     k < (*n)/((int) sqrt((double) *p)) * (y+1);
+    	for (k = (*n)/((int) sqrt((double) p)) * y;
+    	     k < (*n)/((int) sqrt((double) p)) * (y+1);
     	     k++) {
 
     	  (*C)[i][k] += (*A)[i][j] * (*B)[h][k];
@@ -139,12 +139,12 @@ void *threadCalc(void *rank) {
 
 }
 
-void pCalc(int *p) {
+void pCalc(int p) {
 printf("entered pcalc\n");
   long       thread;
   pthread_t* thread_handles;
 
-  thread_handles = malloc (*p * sizeof(pthread_t));
+  thread_handles = malloc (p * sizeof(pthread_t));
 
   *C = malloc(*n * sizeof(int*));
 printf("malloc-ed C pointer\n");
@@ -162,12 +162,12 @@ printf("malloc-ed C first time\n");
 
 printf("malloc-ed C\n");
 
-  for (thread = 0; thread < *p; thread++) {
+  for (thread = 0; thread < p; thread++) {
     pthread_create(&thread_handles[thread], NULL,
 		   threadCalc, (void*) thread);
   }
 
-  for (thread = 0; thread < *p; thread++) {
+  for (thread = 0; thread < p; thread++) {
     pthread_join(thread_handles[thread], NULL);
   }
 
@@ -179,9 +179,8 @@ printf("malloc-ed C\n");
 
 void main(int argc, char *argv[]) {
 printf("start\n");
-  char *cmdinput = argv[1];
-  *p = atoi(cmdinput);
-printf("Got p as %d\n", *p);
+  p = atoi(argv[1]);
+printf("Got p as %d\n", p);
   Lab1_loadinput(A, B, n);
 printf("loaded input\n");
   pCalc(p);
