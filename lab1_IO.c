@@ -119,7 +119,7 @@ void *threadCalc(void *rank) {
 printf("rank is %d\n", ranknum);
   int x = floor(ranknum / ((int) sqrt((double) p)));
   int y = ranknum % ((int) sqrt((double) p));
-  printf("x is %d y is %d\n", x, y);
+//printf("x is %d y is %d\n", x, y);
 
   int h, i, j, k;
   printf("things are ready to enter the loops\n");
@@ -141,7 +141,7 @@ printf("rank is %d\n", ranknum);
     	     k++) {
                  printf("about to crash and burn?\n");
                  printf("*(A[i][j]) is %d\n", A[i][j]);
-    	  C[i][k] += *(A[i][j]) * *(B[h][k]);
+    	  C[i][k] = *(C[i][k]) + (*(A[i][j]) * *(B[h][k]));
         printf("crash and burn?\n");
     	}
       }
