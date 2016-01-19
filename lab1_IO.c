@@ -47,8 +47,8 @@ printf("2\n");
 printf("3\n");
     fscanf(ip, "%d\n", n);
 printf("got n as %d\n", *n);
-    A = malloc(*n * sizeof(int*));
-    B = malloc(*n * sizeof(int*));
+    A = malloc(*n * sizeof(int));
+    B = malloc(*n * sizeof(int));
 printf("got A and B first time\n");
     for (i = 0; i < *n; i++)
     {
@@ -155,7 +155,7 @@ printf("entered pcalc\n");
 printf("1.1\n");
   thread_handles = malloc(p * sizeof(pthread_t));
 printf("n is still %d\n", *n);
-  C = malloc(*n * sizeof(int*));
+  C = malloc(*n * sizeof(int));
 printf("malloc-ed C pointer\n");
   int i, j;
 
