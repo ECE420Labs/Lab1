@@ -154,9 +154,13 @@ void pCalc(int *p) {
     (*C)[i] = malloc(*n * sizeof(int));
   }
 
-  for (i = 0; i < *n; i++)
-    for (j = 0; j< *n; j++)
+  for (i = 0; i < *n; i++) {
+    for (j = 0; j< *n; j++) {
       (*C)[i][j] = 0;
+    }
+  }
+
+printf("malloc-ed C\n");
 
   for (thread = 0; thread < *p; thread++) {
     pthread_create(&thread_handles[thread], NULL,
