@@ -50,7 +50,7 @@ printf("n is %d\n", *n);
       (*A)[i] = malloc(*n * sizeof(int));
       (*B)[i] = malloc(*n * sizeof(int));
     }
-printf("malloced A and B\n", );
+printf("malloced A and B\n");
     for (i = 0; i < *n; i++) {
         for (j = 0; j< *n; j++) {
             fscanf(ip, "%d\t", &(*A)[i][j]);
@@ -61,7 +61,7 @@ printf("malloced A and B\n", );
             fscanf(ip, "%d\t", &(*B)[i][j]);
         }
     }
-printf("loaded A and B\n")
+printf("loaded A and B\n");
     fclose(ip);
     return 0;
 }
