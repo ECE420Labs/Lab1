@@ -179,7 +179,7 @@ printf("malloc-ed C\n");
 
 void main(int argc, char *argv[]) {
 printf("start\n");
-  *p = atoi(argv[1]);
+  p = atoi(argv[1]);
 printf("Got p as %d\n", *p);
   Lab1_loadinput(A, B, n);
 printf("loaded input\n");
