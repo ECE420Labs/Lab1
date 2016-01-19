@@ -119,12 +119,14 @@ void *threadCalc(void *rank) {
 printf("rank is %d\n", ranknum);
   int x = floor(ranknum / ((int) sqrt((double) p)));
   int y = ranknum % ((int) sqrt((double) p));
+  printf("x is %d y is %d\n", x, y);
 
   int h, i, j, k;
   printf("things are ready to enter the loops\n");
   for (i = (*n)/((int) sqrt((double) p)) * x;
        i < (*n)/((int) sqrt((double) p)) * (x+1);
        i++) {
+           printf("i is %d\n", i);
 
     for (j = (*n)/((int) sqrt((double) p)) * y;
 	 j < (*n)/((int) sqrt((double) p)) * (y+1);
