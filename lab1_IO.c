@@ -115,10 +115,10 @@ int Lab1_saveoutput(int **C, int *n, double Time)
 void *threadCalc(void *rank) {
   printf("thread calc commences\n");
 
-  int *ranknum = (int *) rank;
- printf("rank is %d\n", *ranknum);
-  int x = floor(*ranknum / ((int) sqrt((double) p)));
-  int y = *ranknum % ((int) sqrt((double) p));
+  int ranknum = (int) rank;
+printf("rank is %d\n", ranknum);
+  int x = floor(ranknum / ((int) sqrt((double) p)));
+  int y = ranknum % ((int) sqrt((double) p));
 
   int h, i, j, k;
   printf("things are ready to enter the loops\n");
