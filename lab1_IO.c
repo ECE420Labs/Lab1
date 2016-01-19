@@ -52,8 +52,8 @@ printf("got n as %d\n", *n);
 printf("got A and B first time\n");
     for (i = 0; i < *n; i++)
     {
-      (*A)[i] = malloc(*n * sizeof(int));
-      (*B)[i] = malloc(*n * sizeof(int));
+      A[i] = malloc(*n * sizeof(int));
+      B[i] = malloc(*n * sizeof(int));
     }
 printf("malloced A and B\n");
     for (i = 0; i < *n; i++) {
