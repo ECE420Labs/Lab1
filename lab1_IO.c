@@ -31,7 +31,8 @@ int Lab1_loadinput(int ***A, int ***B, int *n)
     call this function as
     lab1_loadinput(&A, &B, &n);
 */
-*n = 0;
+*n = malloc(sizeof(int*));
+
 printf("start load\n");
     FILE *ip;
 printf("1\n");
@@ -196,5 +197,5 @@ printf("loaded input\n");
   free(A);
   free(B);
   free(C);
-
+  free(n);
 }
