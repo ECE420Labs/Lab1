@@ -140,6 +140,7 @@ printf("rank is %d\n", ranknum);
     	     k < (*n)/((int) sqrt((double) p)) * (y+1);
     	     k++) {
                  printf("about to crash and burn?\n");
+                 printf("*(A[i][j]) is %d\n", *(A[i][j]));
     	  *(C[i][k]) += *(A[i][j]) * *(B[h][k]);
         printf("crash and burn?\n");
     	}
