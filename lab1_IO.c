@@ -31,7 +31,7 @@ int Lab1_loadinput(int ***A, int ***B, int *n)
     call this function as
     lab1_loadinput(&A, &B, &n);
 */
-
+printf("start load\n");
     FILE* ip;
     int i,j;
 
@@ -41,7 +41,7 @@ int Lab1_loadinput(int ***A, int ***B, int *n)
             return 1;
     }
     fscanf(ip, "%d\n", n);
-
+printf("n is %d\n", *n);
     *A = malloc(*n * sizeof(int*));
     *B = malloc(*n * sizeof(int*));
 
@@ -50,13 +50,18 @@ int Lab1_loadinput(int ***A, int ***B, int *n)
       (*A)[i] = malloc(*n * sizeof(int));
       (*B)[i] = malloc(*n * sizeof(int));
     }
-
-    for (i = 0; i < *n; i++)
-        for (j = 0; j< *n; j++)
+printf("malloced A and B\n", );
+    for (i = 0; i < *n; i++) {
+        for (j = 0; j< *n; j++) {
             fscanf(ip, "%d\t", &(*A)[i][j]);
-    for (i = 0; i < *n; i++)
-        for (j = 0; j <* n; j++)
+        }
+    }
+    for (i = 0; i < *n; i++) {
+        for (j = 0; j <* n; j++) {
             fscanf(ip, "%d\t", &(*B)[i][j]);
+        }
+    }
+printf("loaded A and B\n")
     fclose(ip);
     return 0;
 }
