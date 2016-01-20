@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "lab1_IO.h"
 
+int Lab1_loadinput(int ***A, int ***B, int *n);
+int Lab1_saveoutput(int **C, int *n, double Time);
 void *pCalc(void* arg_p);
 
 typedef struct ThrDt {
