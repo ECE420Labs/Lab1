@@ -1,24 +1,16 @@
-Read me for ECE420 Lab1 Script Kit
+Read me for ECE420 Lab1
 Jan. 2016
 
-=====
-Overview:
-    There are three groups in this kit
+Modified by:
+    Andrea McIntosh (1346224)
+    Jenna Hatchard (1359917)
 
------
-    Data generating program:
-    matrixgen.c      source file for the input data generation program
+Details:
+    MatrixThreads.c contains the code for creating threads, and the matrix multiplication
+    program the threads run.
 
------
-    Important functions:
-    timer.h          macro definition for time measurement
-    lab1_IO.h        header for the lab1_IO.c, need to be included if call the IOs directly from lab1_IO.c
-    lab1_IO.c        source file for the IO functions, need to be referred in the compiler line if the functions are called in the program
+To compile:
+    gcc MatrixThreads.c lab1_IO.c -o main -lpthread
 
------
-    Verification program:
-    serialtester.c   source file for the testing program, depending on the lab1_IO.c
-
-=====
-Please also find the details instructions in the comments of the individual files.
-
+Acknowledgements:
+    Helped by Robin Verleun.
