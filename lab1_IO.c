@@ -14,19 +14,22 @@ typedef struct ThrDt {
 
 int main (int argc, char* argv[])
 {
+printf("main start\n");
     int n, p; // matrix size, number of threads
     int i, thread;
     FILE* fp;
     int **A; int**B; int** C;
 
     p = atoi(argv[1]);
+printf("p is %d\n", p);
     Lab1_loadinput(&A, &B, &n);
+printf("loaded A and B\n");
 
     C = malloc(n * sizeof(int*));
     for (i = 0; i < n; i++) {
         C[i] = malloc(n * sizeof(int));
     }
-
+printf("malloced C\n");
     pthread_t *thread_handles = malloc(p * sizeof(pthread_t));
     threadData *thread_data = malloc(p * sizeof(threadData));
 
@@ -37,7 +40,7 @@ int main (int argc, char* argv[])
       thread_data[thread].n = n;
       thread_data[thread].p = p;
       thread_data[thread].rank = thread;
-
+printf("thread data assignments\n");
       pthread_create(&thread_handles[thread], NULL,
              pCalc, (void*) &thread_data[thread]);
     }
@@ -61,7 +64,7 @@ void *pCalc(void* arg_p) {
     int sum = 0;
 
     int fac = (td->n)*(td->n)/(td->p);
-
+printf("fac is %d\n", fac);
     for (i = td->rank * fac; i < (td->rank + 1) * fac; i++) {
         for(j = td->rank * fac; j < (td->rank + 1) * fac; j++) {
             sum += (td->matA)[i][j] * (td->matB)[j][i];
