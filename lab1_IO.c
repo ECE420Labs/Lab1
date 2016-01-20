@@ -66,10 +66,11 @@ void *pCalc(void* arg_p) {
     int fac = (td->n)*(td->n)/(td->p);
 printf("fac is %d\n", fac);
     for (i = td->rank * fac; i < (td->rank + 1) * fac; i++) {
+        int i_ind = i / (td->n); // integer division floors result
         for(j = td->rank * fac; j < (td->rank + 1) * fac; j++) {
-            sum += (td->matA)[i][j] * (td->matB)[j][i];
+            sum += (td->matA)[i_ind][j % (td->n)] * (td->matB)[j % (td->n)][i_ind];
         }
-        (td->matC)[i][i] += sum;
+        (td->matC)[i_ind][i_ind] += sum;
         sum = 0;
     }
 
