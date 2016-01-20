@@ -15,7 +15,7 @@ typedef struct ThrDt {
 int main (int argc, char* argv[])
 {
     int n, p; // matrix size, number of threads
-    int i, thread;
+    int i, j, k, thread;
     FILE* fp;
     int **A; int**B; int** C;
 
@@ -26,8 +26,8 @@ int main (int argc, char* argv[])
     for (i = 0; i < n; i++) {
         C[i] = malloc(n * sizeof(int));
     }
-    for (i = 0; i < n; i++) {
-      for (j = 0; j< n; j++) {
+    for (j = 0; j < n; j++) {
+      for (k = 0; k < n; k++) {
         C[i][j] = 0;
       }
     }
