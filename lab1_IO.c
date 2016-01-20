@@ -6,16 +6,16 @@ int Lab1_saveoutput(int **C, int *n, double Time);
 int Lab1_loadinput(int ***A, int ***B, int *n);
 void *pCalc(void* arg_p);
 
-typedef struct {
+typedef struct ThrDt {
     int **matA, **matB, **matC;
-    int *n;
+    int n;
     int p, rank;
 } threadData;
 
 int main (int argc, char* argv[])
 {
     int n, p; // matrix size, number of threads
-    int i;
+    int i, thread;
     FILE* fp;
     int **A; int**B; int** C;
 
@@ -27,8 +27,8 @@ int main (int argc, char* argv[])
         C[i] = malloc(n * sizeof(int));
     }
 
-    thread_handles = malloc(p * sizeof(pthread_t));
-    thread_data = malloc(p * sizeof(threadData));
+    pthread_t *thread_handles = malloc(p * sizeof(pthread_t));
+    threadData *thread_data = malloc(p * sizeof(threadData));
 
     for (thread = 0; thread < p; thread++) {
       thread_data[thread].matA = A;
@@ -46,7 +46,7 @@ int main (int argc, char* argv[])
       pthread_join(thread_handles[thread], NULL);
     }
 
-    Lab1_saveoutput(C, n, 0);
+    Lab1_saveoutput(C, &n, 0);
 
     free(thread_data);
     free(thread_handles);
