@@ -17,7 +17,7 @@ int main (int argc, char* argv[])
     int n, p; // matrix size, number of threads
     int i, j, k, thread;
     FILE* fp;
-    int **A; int**B; int** C;
+    int **A; int **B; int **C;
 
     p = atoi(argv[1]);
     Lab1_loadinput(&A, &B, &n);
@@ -28,7 +28,7 @@ int main (int argc, char* argv[])
     }
     for (j = 0; j < n; j++) {
       for (k = 0; k < n; k++) {
-        C[i][j] = 0;
+        C[j][k] = 0;
       }
     }
 
