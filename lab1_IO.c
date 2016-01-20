@@ -55,7 +55,7 @@ int main (int argc, char* argv[])
 
 void *pCalc(void* arg_p) {
 
-    threadData td = (threadData) arg_p;
+    threadData *td = (threadData *) arg_p;
 
     int i, j;
     int sum = 0;
