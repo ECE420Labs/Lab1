@@ -62,11 +62,11 @@ void *pCalc(void* arg_p) {
 
     int fac = (td->n)*(td->n)/(td->p);
 
-    for (i = td.rank * fac; i < (td.rank + 1) * fac; i++) {
-        for(j = td.rank * fac; j < (td.rank + 1) * fac; j++) {
-            sum += (td->A)[i][j] * (td->B)[j][i];
+    for (i = td->rank * fac; i < (td->rank + 1) * fac; i++) {
+        for(j = td->rank * fac; j < (td->rank + 1) * fac; j++) {
+            sum += (td->matA)[i][j] * (td->matB)[j][i];
         }
-        (td->C)[i][i] += sum;
+        (td->matC)[i][i] += sum;
         sum = 0;
     }
 
