@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "lab1_IO.h"
 #include "timer.h"
+#include <sys/time.h>
 
 int Lab1_loadinput(int ***A, int ***B, int *n);
 int Lab1_saveoutput(int **C, int *n, double Time);
@@ -23,7 +24,6 @@ int main (int argc, char* argv[])
     double startTime;
     double endTime;
     double totalTime;
-    double now;
 
     // Get number of threads
     p = atoi(argv[1]);
