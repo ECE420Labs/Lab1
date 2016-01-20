@@ -44,7 +44,7 @@ int main (int argc, char* argv[])
     // Allocating threads and their structs containing the data
     pthread_t *thread_handles = malloc(p * sizeof(pthread_t));
     threadData *thread_data = malloc(p * sizeof(threadData));
-    start = GET_TIME(start);
+    GET_TIME(start);
     for (thread = 0; thread < p; thread++) {
       // Give each the data they need
       thread_data[thread].matA = A;
@@ -62,7 +62,7 @@ int main (int argc, char* argv[])
     for (thread = 0; thread < p; thread++) {
       pthread_join(thread_handles[thread], NULL);
     }
-    end = GET_TIME(end);
+    GET_TIME(end);
     totalTime = end - start;
     // Save to data_output file
     Lab1_saveoutput(C, &n, totalTime);
