@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lab1_IO.h"
+#include "timer.h"
 
 int Lab1_loadinput(int ***A, int ***B, int *n);
 int Lab1_saveoutput(int **C, int *n, double Time);
@@ -19,6 +20,9 @@ int main (int argc, char* argv[])
     int i, j, k, thread; // counters
     FILE* fp;
     int **A; int **B; int **C; // matrices
+    double startTime;
+    double endTime;
+    double totalTime;
 
     // Get number of threads
     p = atoi(argv[1]);
@@ -39,7 +43,7 @@ int main (int argc, char* argv[])
     // Allocating threads and their structs containing the data
     pthread_t *thread_handles = malloc(p * sizeof(pthread_t));
     threadData *thread_data = malloc(p * sizeof(threadData));
-
+    startTime = GET_TIME();
     for (thread = 0; thread < p; thread++) {
       // Give each the data they need
       thread_data[thread].matA = A;
@@ -57,9 +61,10 @@ int main (int argc, char* argv[])
     for (thread = 0; thread < p; thread++) {
       pthread_join(thread_handles[thread], NULL);
     }
-
+    endTime = GET_TIME();
+    totalTime = endTime - startTime;
     // Save to data_output file
-    Lab1_saveoutput(C, &n, 0);
+    Lab1_saveoutput(C, &n, totalTime);
 
     // Free allocated memory
     free(thread_data);
