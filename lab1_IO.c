@@ -9,7 +9,7 @@ void *pCalc(void* arg_p);
 typedef struct {
     int **matA, **matB, **matC;
     int *n;
-    int p, threadNum;
+    int p, rank;
 } threadData;
 
 int main (int argc, char* argv[])
@@ -36,7 +36,7 @@ int main (int argc, char* argv[])
       thread_data[thread].matC = C;
       thread_data[thread].n = n;
       thread_data[thread].p = p;
-      thread_data[thread].threadNum = thread;
+      thread_data[thread].rank = thread;
 
       pthread_create(&thread_handles[thread], NULL,
              pCalc, (void*) thread_data[thread]);
@@ -45,21 +45,29 @@ int main (int argc, char* argv[])
     for (thread = 0; thread < p; thread++) {
       pthread_join(thread_handles[thread], NULL);
     }
+
+    Lab1_saveoutput(C, n, 0);
+
+    free(thread_data);
+    free(thread_handles);
+    free(A); free(B); free(C);
 }
 
 void *pCalc(void* arg_p) {
 
     threadData td = (threadData) arg_p;
 
-    int i, j, k;
+    int i, j;
+    int sum = 0;
 
-    for (i = 0; i < n; i++) {
-        for(j = 0; j < n; j++) {
-            C[i][j] = 0;
-            for (k = 0; k < n; k++) {
-                C[i][j] += A[i][k] * B[k][j];
-            }
+    int fac = (td->n)*(td->n)/(td->p);
+
+    for (i = td.rank * fac; i < (td.rank + 1) * fac; i++) {
+        for(j = td.rank * fac; j < (td.rank + 1) * fac; j++) {
+            sum += A[i][j] * B[j][i];
         }
+        C[i][i] += sum;
+        sum = 0;
     }
 
 }
