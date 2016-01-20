@@ -23,6 +23,7 @@ int main (int argc, char* argv[])
     double startTime;
     double endTime;
     double totalTime;
+    double now;
 
     // Get number of threads
     p = atoi(argv[1]);
