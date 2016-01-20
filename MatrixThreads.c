@@ -63,7 +63,7 @@ int main (int argc, char* argv[])
       pthread_join(thread_handles[thread], NULL);
     }
     endTime = GET_TIME(end);
-    totalTime = endTime - startTime;
+    totalTime = end - start;
     // Save to data_output file
     Lab1_saveoutput(C, &n, totalTime);
 
