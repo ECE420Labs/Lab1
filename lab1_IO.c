@@ -1,13 +1,70 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include "lab1_IO.h"
 
-int ***A, ***B, ***C;
-int *n;
-int p;
+int Lab1_saveoutput(int **C, int *n, double Time);
+int Lab1_loadinput(int ***A, int ***B, int *n);
+void *pCalc(void* arg_p);
 
-int Lab1_loadinput()
+typedef struct {
+    int **matA, **matB, **matC;
+    int *n;
+    int p, threadNum;
+} threadData;
+
+int main (int argc, char* argv[])
+{
+    int n, p; // matrix size, number of threads
+    int i;
+    FILE* fp;
+    int **A; int**B; int** C;
+
+    p = atoi(argv[1]);
+    Lab1_loadinput(&A, &B, &n);
+
+    C = malloc(n * sizeof(int*));
+    for (i = 0; i < n; i++) {
+        C[i] = malloc(n * sizeof(int));
+    }
+
+    thread_handles = malloc(p * sizeof(pthread_t));
+    thread_data = malloc(p * sizeof(threadData));
+
+    for (thread = 0; thread < p; thread++) {
+      thread_data[thread].matA = A;
+      thread_data[thread].matB = B;
+      thread_data[thread].matC = C;
+      thread_data[thread].n = n;
+      thread_data[thread].p = p;
+      thread_data[thread].threadNum = thread;
+
+      pthread_create(&thread_handles[thread], NULL,
+             pCalc, (void*) thread_data[thread]);
+    }
+
+    for (thread = 0; thread < p; thread++) {
+      pthread_join(thread_handles[thread], NULL);
+    }
+}
+
+void *pCalc(void* arg_p) {
+
+    threadData td = (threadData) arg_p;
+
+    int i, j, k;
+
+    for (i = 0; i < n; i++) {
+        for(j = 0; j < n; j++) {
+            C[i][j] = 0;
+            for (k = 0; k < n; k++) {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+
+}
+
+int Lab1_loadinput(int ***A, int ***B, int *n)
 {
 /*
     Allocate memory and load the input data for Lab 1
@@ -32,41 +89,31 @@ int Lab1_loadinput()
     lab1_loadinput(&A, &B, &n);
 */
 
-  n = malloc(sizeof(int));
+    FILE* ip;
+    int i,j;
 
-printf("start load\n");
-    FILE *ip;
-printf("1\n");
-    int i, j;
-printf("2\n");
     if ((ip = fopen("data_input","r")) == NULL)
     {
             printf("error opening the input data.\n");
             return 1;
     }
-printf("3\n");
     fscanf(ip, "%d\n", n);
-printf("got n as %d\n", *n);
-    A = malloc(*n * sizeof(int*));
-    B = malloc(*n * sizeof(int*));
-printf("got A and B first time\n");
-    for (i = 0; i < *n; i++)
+
+    *A = malloc(*n * sizeof(int*));
+    *B = malloc(*n * sizeof(int*));
+
+    for (i = 0; i <= *n; i++)
     {
-      A[i] = malloc(*n * sizeof(int));
-      B[i] = malloc(*n * sizeof(int));
+      (*A)[i] = malloc(*n * sizeof(int));
+      (*B)[i] = malloc(*n * sizeof(int));
     }
-printf("malloced A and B\n");
-    for (i = 0; i < *n; i++) {
-        for (j = 0; j< *n; j++) {
-            fscanf(ip, "%d\t", &A[i][j]);
-        }
-    }
-    for (i = 0; i < *n; i++) {
-        for (j = 0; j <* n; j++) {
-            fscanf(ip, "%d\t", &B[i][j]);
-        }
-    }
-printf("loaded A and B\n");
+
+    for (i = 0; i < *n; i++)
+        for (j = 0; j< *n; j++)
+            fscanf(ip, "%d\t", &(*A)[i][j]);
+    for (i = 0; i < *n; i++)
+        for (j = 0; j <* n; j++)
+            fscanf(ip, "%d\t", &(*B)[i][j]);
     fclose(ip);
     return 0;
 }
@@ -110,93 +157,4 @@ int Lab1_saveoutput(int **C, int *n, double Time)
     fprintf(op, "%f\n", Time);
     fclose(op);
     return 0;
-}
-
-void *threadCalc(void *rank) {
-  printf("thread calc commences\n");
-
-  long ranknum = (long) rank;
-printf("rank is %d\n", ranknum);
-  int x = floor(ranknum / ((int) sqrt((double) p)));
-  int y = ranknum % ((int) sqrt((double) p));
-//printf("x is %d y is %d\n", x, y);
-
-  int h, i, j, k;
-  printf("things are ready to enter the loops\n");
-  for (i = (*n)/((int) sqrt((double) p)) * x;
-       i < (*n)/((int) sqrt((double) p)) * (x+1);
-       i++) {
-           //printf("i is %d\n", i);
-
-    for (j = (*n)/((int) sqrt((double) p)) * y;
-	     j < (*n)/((int) sqrt((double) p)) * (y+1);
-	     j++) {
-//printf("j is %d\n", j);
-      for (h = (*n)/((int) sqrt((double) p)) * x;
-	       h < (*n)/((int) sqrt((double) p)) * (x+1);
-	       h++) {
-
-    	for (k = (*n)/((int) sqrt((double) p)) * y;
-    	     k < (*n)/((int) sqrt((double) p)) * (y+1);
-    	     k++) {
-        printf("about to crash and burn? i k are %d %d\n", i, k);
-        printf("A[i][j] is %d B[h][k] is %d C[i][k] is %d\n", A[i][j], B[h][k], C[i][k]);
-    	            *C[i][k] = (A[i][j]) * (B[h][k]) + (C[i][k]);
-        printf("crash and burn?\n");
-    	}
-      }
-    }
-  }
-}
-
-void pCalc(int p) {
-printf("entered pcalc\n");
-  long       thread;
-  pthread_t* thread_handles;
-printf("1.1\n");
-  thread_handles = malloc(p * sizeof(pthread_t));
-printf("n is still %d\n", *n);
-  C = malloc(*n * sizeof(int*));
-printf("malloc-ed C pointer\n");
-  int i, j;
-
-  for (i = 0; i <= *n; i++) {
-    C[i] = malloc(*n * sizeof(int));
-  }
-printf("malloc-ed C first time\n");
-  for (i = 0; i < *n; i++) {
-    for (j = 0; j< *n; j++) {
-      C[i][j] = 0;
-    }
-  }
-
-printf("malloc-ed C\n");
-
-  for (thread = 0; thread < p; thread++) {
-    pthread_create(&thread_handles[thread], NULL,
-		   threadCalc, (void*) thread);
-  }
-
-  for (thread = 0; thread < p; thread++) {
-    pthread_join(thread_handles[thread], NULL);
-  }
-
-  free(thread_handles);
-  return;
-
-}
-
-
-void main(int argc, char *argv[]) {
-printf("start\n");
-  p = atoi(argv[1]);
-printf("Got p as %d\n", p);
-  Lab1_loadinput();
-printf("loaded input\n");
-  pCalc(p);
-
-  free(A);
-  free(B);
-  free(C);
-  free(n);
 }
