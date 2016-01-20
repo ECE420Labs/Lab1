@@ -39,7 +39,7 @@ int main (int argc, char* argv[])
       thread_data[thread].rank = thread;
 
       pthread_create(&thread_handles[thread], NULL,
-             pCalc, (void*) thread_data[thread]);
+             pCalc, (void*) &thread_data[thread]);
     }
 
     for (thread = 0; thread < p; thread++) {
@@ -64,9 +64,9 @@ void *pCalc(void* arg_p) {
 
     for (i = td.rank * fac; i < (td.rank + 1) * fac; i++) {
         for(j = td.rank * fac; j < (td.rank + 1) * fac; j++) {
-            sum += A[i][j] * B[j][i];
+            sum += (td->A)[i][j] * (td->B)[j][i];
         }
-        C[i][i] += sum;
+        (td->C)[i][i] += sum;
         sum = 0;
     }
 
