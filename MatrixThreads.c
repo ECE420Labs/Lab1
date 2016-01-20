@@ -26,6 +26,12 @@ int main (int argc, char* argv[])
     for (i = 0; i < n; i++) {
         C[i] = malloc(n * sizeof(int));
     }
+    for (i = 0; i < n; i++) {
+      for (j = 0; j< n; j++) {
+        C[i][j] = 0;
+      }
+    }
+
     pthread_t *thread_handles = malloc(p * sizeof(pthread_t));
     threadData *thread_data = malloc(p * sizeof(threadData));
 
